@@ -24,11 +24,12 @@ mongoose.connection.on('disconnected', () => {
 });
 
 // Windows specific listner
-if(process.platform === 'win32'){
+if (process.platform === 'win32') {
     const r1 = readLine.createInterface({
         input: process.stdin,
         output: process.stdout
     });
+
     r1.on('SIGINT', () => {
         process.emit("SIGINT");
     });
@@ -47,7 +48,7 @@ process.once('SIGUSR2', () => {
     gracefulShutdown('nodemon restart');
     process.kill(process.pid, 'SIGUSR2');
 });
-    
+
 // Shutdown invoked by app termination
 process.on('SIGINT', () => {
     gracefulShutdown('app termination');
@@ -65,4 +66,5 @@ connect();
 
 // Import Mongoose schema
 require('./travlr');
+require('./user');
 module.exports = mongoose;
